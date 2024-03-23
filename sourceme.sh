@@ -13,7 +13,7 @@ keymap_path="$qmk/keyboards/kinesis/keymaps/$keymap_name"
 keyboard="kinesis"
 keyboardtype="stapelberg"
 keyboard_path="$keyboard/$keyboardtype"
-hexfile="$keyboard_$keyboardtype_$keymap_name.hex"
+hexfile="${keyboard}_${keyboardtype}_$keymap_name.hex"
 
 function show_help() {
 	cat << EOF
@@ -71,7 +71,7 @@ function build {
     cpkeymap
 
     bash -c "cd $qmk && ./util/docker_build.sh $keyboard_path:$keymap_name"
-    ln -srf ./"$qmk/$hexfile" .
+    cp -f ./"$qmk/$hexfile" .
 }
 
 if [[ $SOURCED -eq 1 ]]; then
